@@ -27,12 +27,10 @@ Usage example
 $originPdo = new PDO('mysql:host=host1;dbname=kidsshouting', 'myuser', 'mypass');
 $destinationPdo = new PDO('mysql:host=host2;dbname=kidsshouting', 'myuser', 'mypass');
 
-$linker = new \PdoMysqlQueryLinker\Linker();
-$linker->setOrigin($originPdo);
-$linker->setDestination($destinationPdo);
-
-$linker->query(
-    "select * from table_in_origin where column = 'something'",
-    "delete from table_in_destination inner join {origin} using(column)"
-);
+(new \PdoMysqlQueryLinker\Linker())
+    ->setOriginPDO($originPdo)
+    ->setDestinationPDO($destinationPdo)
+    ->setOriginQuery("select * from table_in_origin where column = 'something'")
+    ->setDestinationQuery("delete from table_in_destination inner join {origin} using(column)")
+    ->query();
 ```
