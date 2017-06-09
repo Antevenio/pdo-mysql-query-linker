@@ -12,6 +12,10 @@ class Linker {
     protected $destinationPDO;
     protected $originQuery;
     protected $destinationQuery;
+    /**
+     * @var TableBuilder
+     */
+    protected $tableBuilder;
 
     /**
      * @param \PDO $originPDO
@@ -57,7 +61,7 @@ class Linker {
         return $this;
     }
 
-    public function __construct()
+    public function __construct(TableBuilder $tableBuilder)
     {
         $this->originPDO = null;
         $this->destinationPDO = null;
@@ -65,11 +69,16 @@ class Linker {
         $this->destinationQuery = null;
     }
 
-    public function query()
+    public function run()
     {
         $this->queryAssertions();
         $statement = $this->originPDO->query($this->originQuery);
-        $this->getStatementMetainfo($statement);
+        $meta = $this->getStatementMetainfo($statement);
+        $temporaryTableName = $this->getUniqueTablename();
+        $tableDefinition = $this->tableBuilder->getTableDefinition(
+            $meta, $temporaryTableName
+        );
+        echo $tableDefinition;
     }
 
     protected function getStatementMetainfo(\PDOStatement $statement)
@@ -79,6 +88,11 @@ class Linker {
             $meta[] = $statement->getColumnMeta($i);
         }
         return $meta;
+    }
+
+    protected function getUniqueTablename()
+    {
+        return uniqid("_tmplnk_", true);
     }
 
     protected function queryAssertions()

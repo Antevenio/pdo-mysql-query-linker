@@ -32,5 +32,5 @@ $destinationPdo = new PDO('mysql:host=host2;dbname=kidsshouting', 'myuser', 'myp
     ->setDestinationPDO($destinationPdo)
     ->setOriginQuery("select * from table_in_origin where column = 'something'")
     ->setDestinationQuery("delete from table_in_destination inner join {origin} using(column)")
-    ->query();
+    ->run();
 ```
