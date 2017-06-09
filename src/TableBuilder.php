@@ -7,15 +7,6 @@ use PdoMysqlQueryLinker\TableBuilder\Types;
 
 class TableBuilder
 {
-    const TYPE = "type";
-    const USE_LENGTH = "use_length";
-    const USE_PRECISION = "use_precision";
-
-    const FLAG_MAP = [
-        "not_null" => "NOT NULL",
-        "primary_key" => "PRIMARY KEY",
-        "multiple_key" => "INDEX"
-    ];
     /**
      * @var Types
      */
