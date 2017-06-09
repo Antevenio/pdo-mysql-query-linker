@@ -32,8 +32,8 @@ class TableBuilder
         foreach ($columnsMetadata as $columnMeta) {
             if (!$isFirst) {
                 $query .= ",\n";
-                $isFirst = false;
             }
+            $isFirst = false;
             $query .= "\t" . $columnMeta["name"] . " " .
                 $this->types->getSql($columnMeta) . " " .
                 $this->flags->getSql($columnMeta);

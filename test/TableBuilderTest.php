@@ -29,6 +29,13 @@ class TableBuilderTest extends TestCase
                 "name" => "ID",
                 "len" => 10,
                 "precision" => 0
+            ],
+            [
+                "native_type" => "VAR_STRING",
+                "flags" => [],
+                "name" => "STATUS",
+                "len" => 60,
+                "precision" => 0
             ]
         ];
 

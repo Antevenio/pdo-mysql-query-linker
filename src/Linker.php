@@ -1,6 +1,8 @@
 <?php
 namespace PdoMysqlQueryLinker;
 
+use PdoMysqlSelectIterator\Iterator;
+
 class Linker {
     /**
      * @var \PDO
@@ -78,6 +80,13 @@ class Linker {
         $tableDefinition = $this->tableBuilder->getTableDefinition(
             $meta, $temporaryTableName
         );
+        $it = new Iterator($this->originPDO, $this->originQuery);
+        $temp = tmpfile();
+        //fputcsv($temp)
+        //...
+        foreach ($it as $item) {
+
+        }
         echo $tableDefinition;
     }
 
