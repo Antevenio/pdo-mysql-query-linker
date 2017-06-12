@@ -49,7 +49,7 @@ foreach ($rows as $row) {
 $linker->destroyTemporaryTable();
 
 // Get just the resolved query to run in destination adapter
-
-$query = $linker->getFinalQuery();
+$query = $linker->getQuery();
 $stmt = $destinationPdo->query($query);
+$linker->destroyTemporaryTable();
 ```
