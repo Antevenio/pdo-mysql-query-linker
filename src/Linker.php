@@ -86,6 +86,10 @@ class Linker
         $this->destinationPDO = null;
         $this->originQuery = null;
         $this->destinationQuery = null;
+
+        $this->tableBuilder = $tableBuilder;
+        $this->iteratorFactory = $iteratorFactory;
+
         $this->resetTemporaryTablePopulated();
     }
 
