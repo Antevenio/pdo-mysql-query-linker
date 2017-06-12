@@ -5,7 +5,7 @@ class Flags
 {
     const FLAG_MAP = [
         "not_null" => "NOT NULL",
-        "primary_key" => "PRIMARY KEY",
+        "primary_key" => "INDEX",
         "multiple_key" => "INDEX"
     ];
 

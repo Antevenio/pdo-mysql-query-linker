@@ -39,7 +39,13 @@ class TableBuilderTest extends TestCase
             ]
         ];
 
-        $this->assertEquals("",
+        $expectedDefinition = "CREATE TABLE tmp (\n" .
+            "\tID INT(10) NOT NULL INDEX,\n" .
+            "\tSTATUS VARCHAR(60) \n" .
+            ")";
+
+        $this->assertEquals(
+            $expectedDefinition,
             $this->sut->getTableDefinition($metadata, "tmp")
         );
     }

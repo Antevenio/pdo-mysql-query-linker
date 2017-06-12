@@ -34,12 +34,22 @@ class TableBuilder
                 $query .= ",\n";
             }
             $isFirst = false;
-            $query .= "\t" . $columnMeta["name"] . " " .
+            $query .= "\t" . $this->getColumnName($columnMeta) . " " .
                 $this->types->getSql($columnMeta) . " " .
                 $this->flags->getSql($columnMeta);
         }
         $query .= "\n)";
 
         return $query;
+    }
+
+    protected function getColumnName($columnMeta)
+    {
+        return $columnMeta["name"];
+    }
+
+    public function getColumnNames(array $columnsMetadata)
+    {
+        return array_map(array($this, "getColumnName"), $columnsMetadata);
     }
 }
