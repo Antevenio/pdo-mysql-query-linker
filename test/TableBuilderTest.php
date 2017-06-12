@@ -40,7 +40,7 @@ class TableBuilderTest extends TestCase
         ];
 
         $expectedDefinition = "CREATE TABLE tmp (\n" .
-            "\tID INT(10) NOT NULL INDEX,\n" .
+            "\tID INT(10) NOT NULL KEY,\n" .
             "\tSTATUS VARCHAR(60) \n" .
             ")";
 

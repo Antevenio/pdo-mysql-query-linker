@@ -5,8 +5,8 @@ class Flags
 {
     const FLAG_MAP = [
         "not_null" => "NOT NULL",
-        "primary_key" => "INDEX",
-        "multiple_key" => "INDEX"
+        "primary_key" => "KEY",
+        "multiple_key" => "KEY"
     ];
 
     protected function getSqlForFlag($flag)
