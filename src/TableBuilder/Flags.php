@@ -11,10 +11,7 @@ class Flags
 
     protected function getSqlForFlag($flag)
     {
-        if (isset(self::FLAG_MAP[$flag])) {
-            return self::FLAG_MAP[$flag];
-        }
-        return "";
+        return self::FLAG_MAP[$flag] ?: "";
     }
 
     protected function getSqlForMetaFlags(array $flags)
