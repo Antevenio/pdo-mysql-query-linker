@@ -7,6 +7,7 @@ use PdoMysqlSelectIterator\Iterator;
 class Linker
 {
     const TMP_TABLE_PLACEHOLDER = "{origin}";
+    const TMP_PREFIX = "_tmpql_";
     const INTERNAL_ITERATOR_BLOCK_SIZE = 1000;
     /**
      * @var \PDO
@@ -118,6 +119,7 @@ class Linker
         );
         $tempFile = $this->createTemporaryCsv($it);
         $this->loadDataLocalInfile($tempFile, $this->temporaryTable);
+        $this->removeTemporaryFile($tempFile);
         $this->setTemporaryTablePopulated();
 
         return $this;
@@ -157,6 +159,11 @@ class Linker
         return $this;
     }
 
+    protected function removeTemporaryFile($fileName)
+    {
+        unlink($fileName);
+    }
+
     protected function loadDataLocalInfile(
         $file,
         $table
@@ -177,9 +184,13 @@ class Linker
         return $ret;
     }
 
+    protected function getTemporaryCsvFilename() {
+        return tempnam(sys_get_temp_dir(), self::TMP_PREFIX);
+    }
+
     protected function createTemporaryCsv(Iterator $rowIterator)
     {
-        $tmpFilepath = tempnam(sys_get_temp_dir(), '_pdoql_');
+        $tmpFilepath = $this->getTemporaryCsvFilename();
         $f = fopen($tmpFilepath, "w");
         foreach ($rowIterator as $row) {
             fputcsv($f, $row);
@@ -201,7 +212,7 @@ class Linker
 
     protected function getUniqueTablename()
     {
-        return uniqid("_tmplnk_", true);
+        return uniqid(self::TMP_PREFIX, false);
     }
 
     protected function ensureTemporaryTablePopulated()
