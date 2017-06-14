@@ -25,20 +25,24 @@ Usage example
 ```php
 <?php
 $originPdo = new PDO('mysql:host=host1;dbname=kidsshouting', 'myuser', 'mypass');
-$destinationPdo = new PDO('mysql:host=host2;dbname=kidsshouting', 'myuser', 'mypass');
+$targetPdo = new PDO('mysql:host=host2;dbname=kidsshouting', 'myuser', 'mypass');
 
 $linker = (new \PdoMysqlQueryLinker\Linker\Factory())->create()
-    ->setOriginPDO($originPdo)
-    ->setDestinationPDO($destinationPdo)
-    ->setOriginQuery("select * from table_in_origin where column = 'something'")
-    ->setDestinationQuery("delete from table_in_destination inner join {origin} using(column)");
+    ->origin(
+        $originPdo, 
+        "select * from table_in_origin where column = 'something'"
+        )
+    ->target(
+        $targetPdo, 
+        "delete from table_in_destination inner join {origin} using(column)"
+        );
 
 // Get a limit clause block based iterator
 $iterator = $linker->getIterator(10000);
 foreach ($iterator as $row) {
     // do your stuff;
 }
-$linker->destroyTemporaryTable();
+$linker->close();
 
 // Get a pdo statement
 $stmt = $linker->execute();
@@ -46,10 +50,10 @@ $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 foreach ($rows as $row) {
     // do your stuff;
 }
-$linker->destroyTemporaryTable();
+$linker->close();
 
 // Get just the resolved query to run in destination adapter
 $query = $linker->getQuery();
-$stmt = $destinationPdo->query($query);
-$linker->destroyTemporaryTable();
+$stmt = $targetPdo->query($query);
+$linker->close();
 ```

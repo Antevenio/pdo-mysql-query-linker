@@ -16,9 +16,9 @@ class Linker
     /**
      * @var \PDO
      */
-    protected $destinationPDO;
+    protected $targetPDO;
     protected $originQuery;
-    protected $destinationQuery;
+    protected $targetQuery;
     /**
      * @var TableBuilder
      */
@@ -32,11 +32,13 @@ class Linker
 
     /**
      * @param \PDO $originPDO
-     * @return Linker
+     * @param $originQuery
+     * @return $this
      */
-    public function setOriginPDO(\PDO $originPDO)
+    public function origin(\PDO $originPDO, $originQuery)
     {
         $this->originPDO = $originPDO;
+        $this->originQuery = $originQuery;
         $this->resetTemporaryTablePopulated();
 
         return $this;
@@ -46,33 +48,10 @@ class Linker
      * @param \PDO $destinationPDO
      * @return Linker
      */
-    public function setDestinationPDO(\PDO $destinationPDO)
+    public function target(\PDO $targetPDO, $targetQuery)
     {
-        $this->destinationPDO = $destinationPDO;
-        $this->resetTemporaryTablePopulated();
-
-        return $this;
-    }
-
-    /**
-     * @param string $originQuery
-     * @return Linker
-     */
-    public function setOriginQuery($originQuery)
-    {
-        $this->originQuery = $originQuery;
-        $this->resetTemporaryTablePopulated();
-
-        return $this;
-    }
-
-    /**
-     * @param string $destinationQuery
-     * @return Linker
-     */
-    public function setDestinationQuery($destinationQuery)
-    {
-        $this->destinationQuery = $destinationQuery;
+        $this->targetPDO = $targetPDO;
+        $this->targetQuery = $targetQuery;
         $this->resetTemporaryTablePopulated();
 
         return $this;
@@ -84,9 +63,9 @@ class Linker
     )
     {
         $this->originPDO = null;
-        $this->destinationPDO = null;
+        $this->targetPDO = null;
         $this->originQuery = null;
-        $this->destinationQuery = null;
+        $this->targetQuery = null;
 
         $this->tableBuilder = $tableBuilder;
         $this->iteratorFactory = $iteratorFactory;
@@ -104,7 +83,7 @@ class Linker
         $tableDefinition = $this->tableBuilder->getTableDefinition(
             $meta, $this->temporaryTable
         );
-        $this->destinationPDO->query($tableDefinition);
+        $this->targetPDO->query($tableDefinition);
 
         return $this;
     }
@@ -131,15 +110,14 @@ class Linker
 
         return preg_replace(
             "/" . preg_quote(self::TMP_TABLE_PLACEHOLDER) . "/",
-            $this->temporaryTable, $this->destinationQuery
+            $this->temporaryTable, $this->targetQuery
         );
     }
 
     public function execute()
     {
         $this->ensureTemporaryTablePopulated();
-
-        return $this->destinationPDO->query($this->getQuery());
+        return $this->targetPDO->query($this->getQuery());
     }
 
     public function getIterator($blockSize)
@@ -149,13 +127,12 @@ class Linker
         return new Iterator($this->getQuery(), $blockSize);
     }
 
-    public function destroyTemporaryTable()
+    public function close()
     {
         $this->queryAssertions();
-        $this->destinationPDO->query(
+        $this->targetPDO->query(
             "DROP TABLE IF EXISTS " . $this->temporaryTable
         );
-
         return $this;
     }
 
@@ -174,10 +151,10 @@ class Linker
             "FIELDS TERMINATED BY ',' " .
             "OPTIONALLY ENCLOSED BY '\"' " .
             "ESCAPED BY '\\\\'";
-        $ret = $this->destinationPDO->query($sql);
+        $ret = $this->targetPDO->query($sql);
         if ($ret === false) {
             $exception = new \PDOException();
-            $exception->errorInfo = $this->destinationPDO->errorInfo();
+            $exception->errorInfo = $this->targetPDO->errorInfo();
             throw $exception;
         }
 
@@ -226,9 +203,9 @@ class Linker
     protected function queryAssertions()
     {
         assert($this->originPDO != null, "No origin pdo connection set!");
-        assert($this->destinationPDO != null, "No destination pdo connection set!");
+        assert($this->targetPDO != null, "No destination pdo connection set!");
         assert($this->originQuery != null, "No origin query set!");
-        assert($this->destinationQuery != null, "No destination query set!");
+        assert($this->targetQuery != null, "No destination query set!");
     }
 
     protected function isTemporaryTablePopulated()
