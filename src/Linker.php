@@ -153,8 +153,9 @@ class Linker
             "ESCAPED BY '\\\\'";
         $ret = $this->targetPDO->query($sql);
         if ($ret === false) {
-            $exception = new \PDOException();
-            $exception->errorInfo = $this->targetPDO->errorInfo();
+            $errorInfo = $this->targetPDO->errorInfo();
+            $exception = new \PDOException(print_r($errorInfo, true));
+            $exception->errorInfo = $errorInfo;
             throw $exception;
         }
 
