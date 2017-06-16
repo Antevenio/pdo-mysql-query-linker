@@ -9,6 +9,7 @@ class Types
     public function __construct()
     {
         static::$types = [
+            "TINY" => (new Type())->setName("TINYINT"),
             "LONG" => (new Type())->setName("INT")->setUseLength(),
             "DOUBLE" => (new Type())->setName("DOUBLE")->setUseLength()->setUsePrecision(),
             "DATETIME" => (new Type())->setName("DATETIME"),
