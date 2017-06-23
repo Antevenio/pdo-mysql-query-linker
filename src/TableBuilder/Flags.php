@@ -3,24 +3,57 @@ namespace PdoMysqlQueryLinker\TableBuilder;
 
 class Flags
 {
-    const FLAG_MAP = [
-        "not_null" => "NOT NULL",
-        "primary_key" => "KEY",
-        "multiple_key" => "KEY"
+    const CONSTRAINT_MAP = [
+        "not_null" => "NOT NULL"
     ];
 
-    protected function getSqlForFlag($flag)
+    const INDEX_MAP = [
+        "primary_key" => "INDEX(?)",
+        "multiple_key" => "INDEX(?)"
+    ];
+
+    protected function getConstraintSqlForFlag($flag)
     {
-        return self::FLAG_MAP[$flag] ?: "";
+        return @self::CONSTRAINT_MAP[$flag] ?: "";
     }
 
-    protected function getSqlForMetaFlags(array $flags)
+    protected function getIndexSqlForFlag($flag)
     {
-        return implode(" ", array_map(array($this, "getSqlForFlag"), $flags));
+        return @self::INDEX_MAP[$flag] ?: "";
     }
 
-    public function getSql($columnMeta)
+    protected function getIndexSqlForFlags(array $flags)
     {
-        return $this->getSqlForMetaFlags($columnMeta["flags"]);
+        return implode(",",
+            array_filter(
+                array_map([$this, "getIndexSqlForFlag"], $flags)
+            )
+        );
+    }
+
+    protected function getConstraintSqlForFlags(array $flags)
+    {
+        return implode(
+            " ",
+            array_filter(
+                array_map(array($this, "getConstraintSqlForFlag"), $flags)
+            )
+        );
+    }
+
+    public function getConstraintsSql(ColumnMeta $columnMeta)
+    {
+        return $this->getConstraintSqlForFlags(
+            $columnMeta->getFlags()
+        );
+    }
+
+    public function getIndexesSql(ColumnMeta $columnMeta)
+    {
+        return preg_replace(
+            "/\?/",
+            $columnMeta->getColumnName(),
+            $this->getIndexSqlForFlags($columnMeta->getFlags())
+        );
     }
 }

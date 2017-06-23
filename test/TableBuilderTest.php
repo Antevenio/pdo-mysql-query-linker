@@ -17,7 +17,7 @@ class TableBuilderTest extends TestCase
         );
     }
 
-    public function testASample()
+    public function testGetTableDefinition()
     {
         $metadata = [
             [
@@ -36,12 +36,36 @@ class TableBuilderTest extends TestCase
                 "name" => "STATUS",
                 "len" => 60,
                 "precision" => 0
+            ],
+            [
+                "native_type" => "TINY",
+                "flags" => [],
+                "name" => "TINYTOONS",
+                "len" => 1,
+                "precision" => 0
+            ],
+            [
+                "native_type" => "DOUBLE",
+                "flags" => [],
+                "name" => "DOUBLEX",
+                "len" => 8,
+                "precision" => 2
+            ],
+            [
+                "native_type" => "DATETIME",
+                "flags" => [],
+                "name" => "DATEANDTIME",
+                "len" => 8,
+                "precision" => 2
             ]
         ];
 
         $expectedDefinition = "CREATE TABLE tmp (\n" .
-            "\tID INT(10) NOT NULL KEY,\n" .
-            "\tSTATUS VARCHAR(60) \n" .
+            "\tID INT(10) NOT NULL, INDEX(ID),\n" .
+            "\tSTATUS VARCHAR(60),\n" .
+            "\tTINYTOONS TINYINT,\n" .
+            "\tDOUBLEX DOUBLE(8,2),\n" .
+            "\tDATEANDTIME DATETIME\n" .
             ")";
 
         $this->assertEquals(

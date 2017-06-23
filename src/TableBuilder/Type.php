@@ -63,7 +63,7 @@ class Type {
         return $this;
     }
 
-    public function getSql($columnMeta)
+    public function getSql(ColumnMeta $columnMeta)
     {
         $ret = $this->getName();
         if (!$this->getUseLength() && !$this->getUsePrecision()) {
@@ -72,10 +72,10 @@ class Type {
 
         $ret .= "(";
         if ($this->getUseLength()) {
-            $ret .= $columnMeta["len"];
+            $ret .= $columnMeta->getLength();
         }
         if ($this->getUsePrecision()) {
-            $ret .= ",".  $columnMeta["precision"];
+            $ret .= ",".  $columnMeta->getPrecision();
         }
         $ret .= ")";
 

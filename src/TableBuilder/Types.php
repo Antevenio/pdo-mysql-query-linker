@@ -23,7 +23,7 @@ class Types
         return static::$types[$nativeType];
     }
 
-    public function getSql($columnMeta) {
-        return $this->getType($columnMeta["native_type"])->getSql($columnMeta);
+    public function getSql(ColumnMeta $columnMeta) {
+        return $this->getType($columnMeta->getNativeType())->getSql($columnMeta);
     }
 }
