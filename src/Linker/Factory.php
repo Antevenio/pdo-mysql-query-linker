@@ -9,7 +9,7 @@ class Factory {
     {
         return new Linker(
             (new TableBuilder\Factory())->create(),
-            new \PdoMysqlSelectIterator\Iterator\Factory()
+            new \PdoMysqlSelectIterator\Factory()
         );
     }
 }
