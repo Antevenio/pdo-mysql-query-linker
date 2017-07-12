@@ -2,6 +2,7 @@
 
 namespace PdoMysqlQueryLinker;
 
+use PdoMysqlSelectIterator\Factory;
 use PdoMysqlSelectIterator\Iterator;
 
 class Linker
@@ -24,7 +25,7 @@ class Linker
      */
     protected $tableBuilder;
     /**
-     * @var Iterator\Factory
+     * @var Factory
      */
     protected $iteratorFactory;
     protected $temporaryTable;
@@ -45,8 +46,9 @@ class Linker
     }
 
     /**
-     * @param \PDO $destinationPDO
-     * @return Linker
+     * @param \PDO $targetPDO
+     * @param $targetQuery
+     * @return $this
      */
     public function target(\PDO $targetPDO, $targetQuery)
     {
@@ -59,7 +61,7 @@ class Linker
 
     public function __construct(
         TableBuilder $tableBuilder,
-        Iterator\Factory $iteratorFactory
+        Factory $iteratorFactory
     )
     {
         $this->originPDO = null;
@@ -124,7 +126,9 @@ class Linker
     {
         $this->ensureTemporaryTablePopulated();
 
-        return new Iterator($this->getQuery(), $blockSize);
+        return $this->iteratorFactory->create(
+            $this->targetPDO, $this->getQuery(), $blockSize
+        );
     }
 
     public function close()

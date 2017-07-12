@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a57ec956257d1f3fa96c7c509842e57",
+    "content-hash": "a5ef6b00dbc2706cab268fde60850a68",
     "packages": [
         {
             "name": "antevenio/pdo-mysql-select-iterator",
-            "version": "0.0.3",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Antevenio/pdo-mysql-select-iterator.git",
-                "reference": "b1d8078baf334ade13b42f7f64477c6d3efa7ca5"
+                "reference": "41941d0f7ac09d8c41bb84aac970f1204a36a691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Antevenio/pdo-mysql-select-iterator/zipball/b1d8078baf334ade13b42f7f64477c6d3efa7ca5",
-                "reference": "b1d8078baf334ade13b42f7f64477c6d3efa7ca5",
+                "url": "https://api.github.com/repos/Antevenio/pdo-mysql-select-iterator/zipball/41941d0f7ac09d8c41bb84aac970f1204a36a691",
+                "reference": "41941d0f7ac09d8c41bb84aac970f1204a36a691",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "pdo",
                 "select"
             ],
-            "time": "2017-06-12T13:24:11+00:00"
+            "time": "2017-07-12T11:49:32+00:00"
         }
     ],
     "packages-dev": [
