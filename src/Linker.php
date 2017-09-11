@@ -137,7 +137,8 @@ class Linker
         $this->targetPDO->query(
             "DROP TABLE IF EXISTS " . $this->temporaryTable
         );
-        return $this;
+        $this->targetPDO = null;
+        $this->originPDO = null;
     }
 
     protected function removeTemporaryFile($fileName)
