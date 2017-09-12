@@ -99,6 +99,7 @@ class Linker
             self::INTERNAL_ITERATOR_BLOCK_SIZE
         );
         $tempFile = $this->createTemporaryCsv($it);
+        $it->close();
         $this->loadDataLocalInfile($tempFile, $this->temporaryTable);
         $this->removeTemporaryFile($tempFile);
         $this->setTemporaryTablePopulated();
