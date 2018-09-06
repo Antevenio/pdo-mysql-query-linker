@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a01464840390005b220e2cbc3d3164a",
+    "content-hash": "3c47524968131a2559ca6b164d537be4",
     "packages": [
         {
             "name": "antevenio/pdo-mysql-select-iterator",
-            "version": "dev-work-with-queries-with-limits",
+            "version": "0.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Antevenio/pdo-mysql-select-iterator.git",
-                "reference": "7bb7314b32697c5ac6a40e41357d9f7352936624"
+                "reference": "7d9654f2839069abd7591ea574bf2f302d034c52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Antevenio/pdo-mysql-select-iterator/zipball/7bb7314b32697c5ac6a40e41357d9f7352936624",
-                "reference": "7bb7314b32697c5ac6a40e41357d9f7352936624",
+                "url": "https://api.github.com/repos/Antevenio/pdo-mysql-select-iterator/zipball/7d9654f2839069abd7591ea574bf2f302d034c52",
+                "reference": "7d9654f2839069abd7591ea574bf2f302d034c52",
                 "shasum": ""
             },
             "require": {
@@ -33,11 +33,7 @@
                     "PdoMysqlSelectIterator\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "PdoMysqlSelectIterator\\Test\\": "test/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -56,11 +52,7 @@
                 "pdo",
                 "select"
             ],
-            "support": {
-                "source": "https://github.com/Antevenio/pdo-mysql-select-iterator/tree/work-with-queries-with-limits",
-                "issues": "https://github.com/Antevenio/pdo-mysql-select-iterator/issues"
-            },
-            "time": "2018-09-06T10:01:49+00:00"
+            "time": "2018-09-06T11:24:29+00:00"
         },
         {
             "name": "predis/predis",
@@ -1430,9 +1422,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "antevenio/pdo-mysql-select-iterator": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
