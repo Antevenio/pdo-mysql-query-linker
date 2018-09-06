@@ -1,27 +1,28 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2619634bd54f30d078ec41f8e0729e68",
+    "content-hash": "9a01464840390005b220e2cbc3d3164a",
     "packages": [
         {
             "name": "antevenio/pdo-mysql-select-iterator",
-            "version": "0.1.8",
+            "version": "dev-work-with-queries-with-limits",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Antevenio/pdo-mysql-select-iterator.git",
-                "reference": "d3df9c034c78386083c0c4b349fa2c00ff4335fd"
+                "reference": "7bb7314b32697c5ac6a40e41357d9f7352936624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Antevenio/pdo-mysql-select-iterator/zipball/d3df9c034c78386083c0c4b349fa2c00ff4335fd",
-                "reference": "d3df9c034c78386083c0c4b349fa2c00ff4335fd",
+                "url": "https://api.github.com/repos/Antevenio/pdo-mysql-select-iterator/zipball/7bb7314b32697c5ac6a40e41357d9f7352936624",
+                "reference": "7bb7314b32697c5ac6a40e41357d9f7352936624",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=5.6",
+                "predis/predis": "~1.0.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.7"
@@ -32,7 +33,11 @@
                     "PdoMysqlSelectIterator\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "PdoMysqlSelectIterator\\Test\\": "test/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -51,7 +56,61 @@
                 "pdo",
                 "select"
             ],
-            "time": "2017-09-12T09:35:30+00:00"
+            "support": {
+                "source": "https://github.com/Antevenio/pdo-mysql-select-iterator/tree/work-with-queries-with-limits",
+                "issues": "https://github.com/Antevenio/pdo-mysql-select-iterator/issues"
+            },
+            "time": "2018-09-06T10:01:49+00:00"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "9ead747663bb1b1ae017dfa0d152aca87792b42f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/9ead747663bb1b1ae017dfa0d152aca87792b42f",
+                "reference": "9ead747663bb1b1ae017dfa0d152aca87792b42f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete Redis client for PHP and HHVM",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2016-05-30T15:25:52+00:00"
         }
     ],
     "packages-dev": [
@@ -1371,7 +1430,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "antevenio/pdo-mysql-select-iterator": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

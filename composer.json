@@ -8,6 +8,12 @@
             "email": "pinfake@hotmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Antevenio/pdo-mysql-select-iterator.git"
+        }
+    ],
     "keywords": ["mysql","pdo","select","query","link","database", "php", "remote"],
     "homepage": "https://github.com/Antevenio/pdo-mysql-query-linker",
     "license": "MIT",
@@ -23,7 +29,7 @@
     },
     "require": {
         "php": ">=5.6",
-        "antevenio/pdo-mysql-select-iterator": "~0.1.8"
+        "antevenio/pdo-mysql-select-iterator": "dev-work-with-queries-with-limits"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"
