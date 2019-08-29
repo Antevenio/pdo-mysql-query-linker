@@ -13,6 +13,7 @@ class Types
             "LONG" => (new Type())->setName("INT")->setUseLength(),
             "DOUBLE" => (new Type())->setName("DOUBLE")->setUseLength()->setUsePrecision(),
             "DATETIME" => (new Type())->setName("DATETIME"),
+            "TIMESTAMP" => (new Type())->setName("TIMESTAMP"),
             "VAR_STRING" => (new Type())->setName("VARCHAR")->setUseLength()
         ];
     }
